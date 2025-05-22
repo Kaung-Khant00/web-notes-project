@@ -1,0 +1,17 @@
+authorization || done
+
+
+make get user  || done 
+make token fun to regenerate access token  || done 
+
+
+NOTES
+
+notes model 
+notes routes
+
+creating notes
+reding notes
+updatting notes 
+deleting notes
+

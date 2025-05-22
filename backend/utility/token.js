@@ -1,0 +1,28 @@
+import jwt from "jsonwebtoken";
+
+export const makeAccessToken = (res, id) => {
+  const access_secret = process.env.JWT_ACCESS_SECRET;
+  const access_token = jwt.sign({ id }, access_secret, {
+    expiresIn: "15m",
+  });
+  res.cookie("access_token", access_token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 1000 * 60 * 60 * 24, // max age one day
+  });
+};
+export const makeRefreshToken = (res, id) => {
+  const refresh_secret = process.env.JWT_REFRESH_SECRET;
+
+  const refresh_token = jwt.sign({ id }, refresh_secret, {
+    expiresIn: "15m",
+  });
+
+  res.cookie("refresh_token", refresh_token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 1000 * 60 * 60 * 24 * 7, // max age seven days
+  });
+};
