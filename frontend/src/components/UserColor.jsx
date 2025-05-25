@@ -1,3 +1,6 @@
+import { toast } from "react-toastify";
+import api from "../axios_instance";
+
 const colors = [
   "bg-red-400",
   "bg-green-400",
@@ -7,7 +10,22 @@ const colors = [
   "bg-pink-400",
 ];
 
-function UserColor({ setUserColor, userColor }) {
+function UserColor({ setUserColor, userColor, setInfo }) {
+  const handleChangeColor = async () => {
+    try {
+      const data = await api.post("/user/update-color", {
+        background_color: userColor,
+      });
+      console.log(data);
+      if (data.status === 200) {
+        setInfo((prev) => ({ ...prev, background_color: userColor }));
+        toast.success(data.data.message);
+        setUserColor(null);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <div className=" p-2">
       <div>Choose my user color</div>
@@ -32,7 +50,10 @@ function UserColor({ setUserColor, userColor }) {
             >
               Cancel
             </button>
-            <button className=" p-2 bg-indigo-500 hover:bg-indigo-600 text-white shadow rounded-lg">
+            <button
+              onClick={handleChangeColor}
+              className=" p-2 bg-indigo-500 hover:bg-indigo-600 text-white shadow rounded-lg"
+            >
               Save
             </button>
           </div>

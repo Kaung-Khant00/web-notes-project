@@ -1,18 +1,22 @@
 import { IoIosSearch } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
 import { FiFilter } from "react-icons/fi";
-import { useState } from "react";
 import { IoIosClose } from "react-icons/io";
 
 import Label from "./Label";
 
-function Search({ setShowFilter }) {
-  const [searchQuery, setSearchQuery] = useState("");
+function Search({ setShowFilter, searchQuery, fetchNotes, setSearchQuery }) {
   return (
     <div className="flex items-center justify-center w-full">
+      <div
+        onClick={fetchNotes}
+        className=" max-w-10 text-indigo-500 hover:text-indigo-700 hover:underline leading-tight"
+      >
+        clear filter
+      </div>
       <Label text={"Filter your notes"}>
         <button
-          className="p-2 hover:text-gray-500"
+          className="flex p-2 hover:text-gray-500"
           onClick={() => {
             setShowFilter(true);
           }}

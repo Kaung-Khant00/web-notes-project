@@ -9,14 +9,14 @@ export const makeAccessToken = (res, id) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
-    maxAge: 1000 * 60 * 60 * 24, // max age one day
+    maxAge: 1000 * 60 * 15, // max age 15 minutes
   });
 };
 export const makeRefreshToken = (res, id) => {
   const refresh_secret = process.env.JWT_REFRESH_SECRET;
 
   const refresh_token = jwt.sign({ id }, refresh_secret, {
-    expiresIn: "15m",
+    expiresIn: "7d",
   });
 
   res.cookie("refresh_token", refresh_token, {

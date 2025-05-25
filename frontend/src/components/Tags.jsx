@@ -1,25 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IoIosClose } from "react-icons/io";
 import { TbTagPlus } from "react-icons/tb";
 
-function Tags({ tags, setTags }) {
+function Tags({ tags = [], setInfo }) {
   const [tagInput, setTagInput] = useState("");
   const handleAddTag = (e) => {
-    if (e.nativeEvent.code === "Enter") {
-      setTags([...tags, tagInput]);
-      setTagInput("");
+    console.log("making new tags");
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (tagInput !== "") {
+        setInfo((prev) => ({ ...prev, tags: [...prev.tags, tagInput] }));
+        setTagInput("");
+      }
     }
   };
-  useEffect(
-    () => {
-      console.log(tags);
-    },
-    { tags }
-  );
   const handleRemoveTag = (targetTag) => {
-    setTags((oldTags) => {
-      return oldTags.filter((item) => item !== targetTag);
-    });
+    setInfo((prev) => ({
+      ...prev,
+      tags: prev.tags.filter((item) => item !== targetTag),
+    }));
   };
   return (
     <div>
@@ -47,6 +46,7 @@ function Tags({ tags, setTags }) {
             <div className="ms-1 bg-red-100 p-1 rounded-lg flex items-center">
               {item}
               <button
+                type="button"
                 className="hover:text-gray-500"
                 onClick={() => {
                   handleRemoveTag(item);

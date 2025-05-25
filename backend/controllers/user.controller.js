@@ -28,9 +28,10 @@ const test = async (req, res) => {
 /*  making access_token with refresh_token */
 const refresh = async (req, res, next) => {
   const refresh_token = req.cookies.refresh_token;
+  console.log(refresh_token);
   if (!refresh_token) {
     return res
-      .status(200)
+      .status(401)
       .json({ error: true, message: "Refresh token not found." });
   }
   try {
@@ -58,18 +59,23 @@ const refresh = async (req, res, next) => {
 /*    Login process   */
 const login = async (req, res, next) => {
   const { email, password } = req.body;
+  console.log(req.body);
   if (!email) {
-    return res.status(400).json({ error: true, message: "email required." });
+    return res
+      .status(400)
+      .json({ error: true, message: { email: "Email required." } });
   }
   if (!password) {
-    return res.status(400).json({ error: true, message: "Password required." });
+    return res
+      .status(400)
+      .json({ error: true, message: { password: "Password required." } });
   }
   try {
     const isUserExists = await User.findOne({ email }).select("+password");
     if (!isUserExists) {
       return res
         .status(400)
-        .json({ error: true, message: "Invalid Creditial." });
+        .json({ error: true, message: { email: "Invalid Credential." } });
     }
     const isCorrectPassword = await bcrypt.compare(
       password,
@@ -78,7 +84,7 @@ const login = async (req, res, next) => {
     if (!isCorrectPassword) {
       return res
         .status(401)
-        .json({ error: true, message: "Invalid Creditial." });
+        .json({ error: true, message: { email: "Invalid Credential." } });
     }
     makeAccessToken(res, isUserExists._id);
     makeRefreshToken(res, isUserExists._id);
@@ -99,31 +105,87 @@ const signup = async (req, res, next) => {
       .json({ error: true, message: "ALL fields are required." });
   }
   if (!user_name) {
-    return res.status(400).json({ error: true, message: "Username required." });
+    return res
+      .status(400)
+      .json({ error: true, message: { user_name: "Username required." } });
   }
   if (!email) {
-    return res.status(400).json({ error: true, message: "email required." });
+    return res
+      .status(400)
+      .json({ error: true, message: { email: "Email required." } });
   }
   if (!password) {
-    return res.status(400).json({ error: true, message: "Password required." });
+    return res
+      .status(400)
+      .json({ error: true, message: { password: "Password required." } });
   }
   try {
     const isEmailUsed = await User.findOne({ email });
     if (isEmailUsed) {
       return res
         .status(409)
-        .json({ error: true, message: "Email has already taken." });
+        .json({ error: true, message: { email: "Email has already taken." } });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ user_name, password: hashedPassword, email });
-    const savedUser = await newUser.save();
-    makeAccessToken(res, isUserExists._id);
-    makeRefreshToken(res, isUserExists._id);
-    if (savedUser) {
+    const newUser = await User.create({
+      user_name,
+      password: hashedPassword,
+      email,
+    });
+    makeAccessToken(res, newUser._id);
+    makeRefreshToken(res, newUser._id);
+    if (newUser) {
       return res
         .status(200)
         .json({ error: false, message: "User successfully created" });
     }
+  } catch (err) {
+    next(err);
+  }
+};
+const username = async (req, res, next) => {
+  const { user_name } = req.body;
+  if (!req.user && !req.user.id) {
+    return res
+      .status(401)
+      .json({ error: true, message: "User is not authenticated." });
+  }
+  try {
+    const isUserExists = await User.findById(req.user.id);
+    if (!isUserExists) {
+      return res(400).json({ error: true, message: "User is not found." });
+    }
+    isUserExists.user_name = user_name;
+    await isUserExists.save();
+    return res
+      .status(200)
+      .json({ error: false, message: "Username has changed successfully." });
+  } catch (err) {
+    next(err);
+  }
+};
+const color = async (req, res, next) => {
+  if (!req.user && !req.user.id) {
+    return res
+      .status(401)
+      .json({ error: true, message: "User is not authenticated." });
+  }
+  console.log("checking if the background is exists", req.body);
+  const { background_color } = req.body;
+  try {
+    const isUserExists = await User.findById(req.user.id);
+    if (!isUserExists) {
+      return res
+        .status(400)
+        .json({ error: true, message: "User is not found." });
+    }
+    isUserExists.background_color = background_color;
+    await isUserExists.save();
+    return res.status(200).json({
+      error: false,
+      user: isUserExists,
+      message: "Background-color has changed successfully.",
+    });
   } catch (err) {
     next(err);
   }
@@ -165,4 +227,4 @@ const logout = async (req, res, next) => {
     next(err);
   }
 }; */
-export { getUser, login, signup, logout, refresh, test };
+export { getUser, login, signup, logout, color, username, refresh, test };

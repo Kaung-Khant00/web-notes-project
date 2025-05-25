@@ -5,7 +5,7 @@ const UserSchema = mongoose.Schema(
     user_name: { type: String, required: true },
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true, select: false },
-    categories: { type: [String], default: ["All"] },
+    background_color: { type: String, default: "bg-gray-200" },
   },
   { timestamps: true }
 );
