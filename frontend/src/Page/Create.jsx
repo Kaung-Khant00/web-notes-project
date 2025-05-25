@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Tags from "../components/Tags";
 import { IoIosArrowBack } from "react-icons/io";
 import { toast } from "react-toastify";
-import api from "../axios_instance";
+import api from "../axios_instance.js";
 import dayjs from "dayjs";
 
 function Create({
