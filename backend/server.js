@@ -11,10 +11,11 @@ import verifyToken from "./utility/authorization.js";
 
 dotenv.config();
 
+const allowedOrigins = process.env.ALLOWED_ORIGINS;
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [allowedOrigins],
     credentials: true,
   })
 );
