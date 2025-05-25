@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import api from "../axios_instance";
+import api from "../utils/axios_instance";
 import { useState } from "react";
 
 function ChangeUserName({ setChangeUserName, changeUserName }) {

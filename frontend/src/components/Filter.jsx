@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import Tags from "./Tags";
-import api from "../axios_instance.js";
+import api from "../utils/axios_instance.js";
 
 function Filter({ closeFilter, showFilter, setNotes }) {
   const [info, setInfo] = useState({

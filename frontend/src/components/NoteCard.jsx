@@ -7,7 +7,7 @@ import Label from "./Label";
 import Detail from "../Page/Detail";
 import { useState } from "react";
 import dayjs from "dayjs";
-import api from "../axios_instance.js";
+import api from "../utils/axios_instance.js";
 import { toast } from "react-toastify";
 import Confirm from "./Confirm";
 import Create from "../Page/Create";

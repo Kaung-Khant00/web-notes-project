@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Filter from "../components/Filter";
 import Search from "../components/Search";
 import Detail from "../Page/Detail";
-import api from "../axios_instance.js";
+import api from "../utils/axios_instance.js";
 import { toast } from "react-toastify";
 
 function Home() {

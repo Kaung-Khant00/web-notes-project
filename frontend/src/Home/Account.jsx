@@ -7,9 +7,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ChangeUserName from "../components/ChangeUserName";
 import UserColor from "../components/UserColor";
-import api from "../axios_instance.js";
+import api from "../utils/axios_instance.js";
 import { toast } from "react-toastify";
-import { getFirstTwoLetter } from "../validator";
+import { getFirstTwoLetter } from "../utils/validator.js";
 
 function Account() {
   const [changeUserName, setChangeUserName] = useState(false);

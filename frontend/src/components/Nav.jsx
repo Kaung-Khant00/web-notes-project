@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 import Search from "./Search";
 import Label from "./Label";
-import api from "../axios_instance";
+import api from "../utils/axios_instance.js";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import { getFirstTwoLetter } from "../validator";
+import { getFirstTwoLetter } from "../utils/validator.js";
 
 function Nav({ setShowFilter, setNotes }) {
   const [user, setUser] = useState({});
