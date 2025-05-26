@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { isStrongPassword, isValidEmail } from "../utils/validator.js";
 import api from "../utils/axios_instance.js";
 import { toast } from "react-toastify";
+import Spinner from "../components/Spinner.jsx";
 
 function Signup() {
   const navigate = useNavigate();
