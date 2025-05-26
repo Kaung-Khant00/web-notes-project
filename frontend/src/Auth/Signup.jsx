@@ -4,7 +4,6 @@ import PasswordInput from "../components/PasswordInput";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { isStrongPassword, isValidEmail } from "../utils/validator.js";
-import Spinner from "../components/Spinner";
 import api from "../utils/axios_instance.js";
 import { toast } from "react-toastify";
 
