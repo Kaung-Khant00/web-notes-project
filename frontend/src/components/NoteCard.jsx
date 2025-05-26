@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 import api from "../utils/axios_instance.js";
 import { toast } from "react-toastify";
 import Confirm from "./Confirm.jsx";
-import Create from "../Page/Create";
+import Create from "../Page/Create.jsx";
 
 function NoteCard({ note, fetchNotes }) {
   const [showDetail, setShowDetail] = useState(false);

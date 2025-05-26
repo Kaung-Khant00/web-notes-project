@@ -7,7 +7,7 @@ import Account from "./Home/Account";
 
 const router = createBrowserRouter([
   {
-    path: "/home",
+    path: "/",
     element: <Home />,
   },
   {
