@@ -68,7 +68,7 @@ function Signup() {
       setError((prev) => ({ ...prev, loading: false }));
       if (data.status === 200) {
         toast.success("Signup succeed.");
-        navigate("/home");
+        navigate("/");
       }
     } catch (err) {
       if (err.status >= 400 || err.response.status) {

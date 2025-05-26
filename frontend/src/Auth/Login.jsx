@@ -55,7 +55,7 @@ function Login() {
       setError((prev) => ({ ...prev, loading: false }));
       if (data.status === 200) {
         toast.success("Login successed.");
-        navigate("/home");
+        navigate("/");
       }
     } catch (err) {
       if (err.status >= 400 || err.response.status) {
