@@ -8,7 +8,7 @@ export const makeAccessToken = (res, id) => {
   res.cookie("access_token", access_token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: "lax",
     maxAge: 1000 * 60 * 15, // max age 15 minutes
   });
 };
@@ -22,7 +22,7 @@ export const makeRefreshToken = (res, id) => {
   res.cookie("refresh_token", refresh_token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: "lax",
     maxAge: 1000 * 60 * 60 * 24 * 7, // max age seven days
   });
 };
