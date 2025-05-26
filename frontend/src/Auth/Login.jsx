@@ -1,5 +1,5 @@
-import SimpleNav from "../components/SimpleNav";
-import PasswordInput from "../components/PasswordInput";
+import SimpleNav from "../components/SimpleNav.jsx";
+import PasswordInput from "../components/PasswordInput.jsx";
 
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";

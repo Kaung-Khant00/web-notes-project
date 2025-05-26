@@ -9,7 +9,7 @@ import { useState } from "react";
 import dayjs from "dayjs";
 import api from "../utils/axios_instance.js";
 import { toast } from "react-toastify";
-import Confirm from "./Confirm";
+import Confirm from "./Confirm.jsx";
 import Create from "../Page/Create";
 
 function NoteCard({ note, fetchNotes }) {
