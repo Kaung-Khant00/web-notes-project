@@ -3,9 +3,9 @@ import PasswordInput from "../components/PasswordInput";
 
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { isStrongPassword, isValidEmail } from "../validator";
+import { isStrongPassword, isValidEmail } from "../utils/validator.js";
 import Spinner from "../components/Spinner";
-import api from "../axios_instance";
+import api from "../utils/axios_instance.js";
 import { toast } from "react-toastify";
 
 function Signup() {
@@ -67,7 +67,7 @@ function Signup() {
       console.log(data);
       setError((prev) => ({ ...prev, loading: false }));
       if (data.status === 200) {
-      toast.success("Signup succeed.");
+        toast.success("Signup succeed.");
         navigate("/home");
       }
     } catch (err) {

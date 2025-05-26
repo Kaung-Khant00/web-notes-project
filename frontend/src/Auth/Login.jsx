@@ -1,16 +1,14 @@
-import Nav from "../components/Nav";
 import SimpleNav from "../components/SimpleNav";
 import PasswordInput from "../components/PasswordInput";
 
-import { GiHand } from "react-icons/gi";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { isValidEmail } from "../validator";
-import api from "../axios_instance";
+import { isValidEmail } from "../utils/validator.js";
+import api from "../utils/axios_instance.js";
 import { toast } from "react-toastify";
 
 function Login() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [info, setInfo] = useState({
     email: "",
     password: "",
@@ -55,20 +53,22 @@ function Login() {
       });
       console.log(data);
       setError((prev) => ({ ...prev, loading: false }));
-      if(data.status === 200){
-        toast.success("Login successed.")
-        navigate("/home")
+      if (data.status === 200) {
+        toast.success("Login successed.");
+        navigate("/home");
       }
     } catch (err) {
-      if(err.status >= 400 || err.response.status){
-        console.log("HELLO ERROR __>")
-      setError((prev) => ({ ...prev,
-        email:err.response.data.message?.email || "",
-    password:err.response.data.message?.password || ""}));
+      if (err.status >= 400 || err.response.status) {
+        console.log("HELLO ERROR __>");
+        setError((prev) => ({
+          ...prev,
+          email: err.response.data.message?.email || "",
+          password: err.response.data.message?.password || "",
+        }));
       }
       setError((prev) => ({ ...prev, loading: false }));
       console.log(err);
-      toast.error("Login failed.")
+      toast.error("Login failed.");
     }
   };
   return (
